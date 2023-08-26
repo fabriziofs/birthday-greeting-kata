@@ -24,10 +24,14 @@ class BirthdayService
 
         foreach ($employees as $employee) {
             if ($employee->isBirthday($xDate)) {
-                $recipient = $employee->getEmail();
-                $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
-                $subject = 'Happy Birthday!';
-                $this->doSendMessage(new Email('sender@here.com', $subject, $body, $recipient));
+                $this->doSendMessage(
+                    new Email(
+                        'sender@here.com',
+                        'Happy Birthday!',
+                        sprintf('Happy Birthday, dear %s!', $employee->getFirstName()),
+                        $employee->getEmail()
+                    )
+                );
             }
         }
     }
