@@ -1,5 +1,7 @@
 <?php
 
+use Domain\Employee;
+use Domain\XDate;
 use PHPUnit\Framework\TestCase;
 
 class EmployeeTest extends TestCase

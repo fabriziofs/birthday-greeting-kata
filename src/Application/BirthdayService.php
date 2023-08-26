@@ -1,8 +1,11 @@
 <?php
 
+namespace Application;
+
 use Domain\Email;
 use Domain\EmailSender;
 use Domain\EmployeeRepository;
+use Domain\XDate;
 
 class BirthdayService
 {

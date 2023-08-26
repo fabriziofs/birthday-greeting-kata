@@ -1,5 +1,6 @@
 <?php
 
+use Domain\XDate;
 use PHPUnit\Framework\TestCase;
 
 class XDateTest extends TestCase

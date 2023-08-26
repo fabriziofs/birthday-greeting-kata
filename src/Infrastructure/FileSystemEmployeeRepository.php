@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Infrastructure;
 
+use Domain\Employee;
 use Domain\EmployeeRepository;
-use Employee;
 
 final class FileSystemEmployeeRepository implements EmployeeRepository
 {

@@ -1,5 +1,9 @@
 <?php
 
+namespace Domain;
+
+use DateTime;
+
 class XDate
 {
     private DateTime $date;
@@ -11,20 +15,19 @@ class XDate
 
     public function getDay(): int
     {
-        return (int) $this->date->format('d');
+        return (int)$this->date->format('d');
     }
 
     public function getMonth(): int
     {
-        return (int) $this->date->format('m');
+        return (int)$this->date->format('m');
     }
 
     public function isSameDay(XDate $anotherDate): bool
     {
         return
             $anotherDate->getDay() == $this->getDay()
-            && $anotherDate->getMonth() == $this->getMonth()
-        ;
+            && $anotherDate->getMonth() == $this->getMonth();
     }
 
     public function equals($obj): bool

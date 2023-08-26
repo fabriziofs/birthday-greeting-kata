@@ -2,8 +2,6 @@
 
 namespace Domain;
 
-use Employee;
-
 interface EmployeeRepository
 {
     /** @return Employee[] */

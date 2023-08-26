@@ -1,5 +1,7 @@
 <?php
 
+use Application\BirthdayService;
+use Domain\XDate;
 use Infrastructure\FileSystemEmployeeRepository;
 use Infrastructure\SymfonyEmailSender;
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace Domain;
+
 class Employee
 {
     private XDate $birthDate;
