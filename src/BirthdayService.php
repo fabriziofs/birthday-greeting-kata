@@ -16,7 +16,7 @@ class BirthdayService
         $this->repository = $repository;
     }
 
-    public function sendGreetings(string $fileName, XDate $xDate): void
+    public function sendGreetings(XDate $xDate): void
     {
         $employees = $this->repository->findAll();
 

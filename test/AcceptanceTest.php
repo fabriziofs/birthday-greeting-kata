@@ -28,7 +28,7 @@ class AcceptanceTest extends TestCase
     /** @test */
     public function willSendGreetings_whenItsSomebodysBirthday()
     {
-        $this->service->sendGreetings(__DIR__ . '/resources/employee_data.txt', new XDate('2008/10/08'));
+        $this->service->sendGreetings(new XDate('2008/10/08'));
 
         $this->assertCount(1, $this->messagesSent, 'message not sent?');
         $message = $this->messagesSent[0];
@@ -41,7 +41,7 @@ class AcceptanceTest extends TestCase
     /** @test */
     public function willNotSendEmailsWhenNobodysBirthday()
     {
-        $this->service->sendGreetings(__DIR__ . '/resources/employee_data.txt', new XDate('2008/01/01'));
+        $this->service->sendGreetings(new XDate('2008/01/01'));
 
         $this->assertCount(0, $this->messagesSent, 'what? messages?');
     }
