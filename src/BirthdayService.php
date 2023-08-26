@@ -1,5 +1,7 @@
 <?php
 
+use Domain\EmployeeRepository;
+use Infrastructure\FileSystemEmployeeRepository;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport\SendmailTransport;
 use Symfony\Component\Mime\Email;
@@ -7,15 +9,18 @@ use Symfony\Component\Mime\Email;
 class BirthdayService
 {
     private Mailer $mailer;
+    private EmployeeRepository $repository;
+
+    public function __construct(EmployeeRepository $repository = new FileSystemEmployeeRepository())
+    {
+        $this->repository = $repository;
+    }
 
     public function sendGreetings(string $fileName, XDate $xDate): void
     {
-        $fileHandler = fopen($fileName, 'r');
-        fgetcsv($fileHandler);
+        $employees = $this->repository->findAll();
 
-        while ($employeeData = fgetcsv($fileHandler)) {
-            $employeeData = array_map('trim', $employeeData);
-            $employee = new Employee($employeeData[1], $employeeData[0], $employeeData[2], $employeeData[3]);
+        foreach ($employees as $employee) {
             if ($employee->isBirthday($xDate)) {
                 $recipient = $employee->getEmail();
                 $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
