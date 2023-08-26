@@ -1,8 +1,8 @@
 <?php
 
+use Domain\Email;
 use Infrastructure\FileSystemEmployeeRepository;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Mime\Email;
 
 class AcceptanceTest extends TestCase
 {
@@ -33,10 +33,9 @@ class AcceptanceTest extends TestCase
 
         $this->assertCount(1, $this->messagesSent, 'message not sent?');
         $message = $this->messagesSent[0];
-        $this->assertEquals('Happy Birthday, dear John!', $message->getTextBody());
-        $this->assertEquals('Happy Birthday!', $message->getSubject());
-        $this->assertCount(1, $message->getTo());
-        $this->assertEquals('john.doe@foobar.com', ($message->getTo()[0])->getAddress());
+        $this->assertEquals('Happy Birthday, dear John!', $message->body);
+        $this->assertEquals('Happy Birthday!', $message->subject);
+        $this->assertEquals('john.doe@foobar.com', $message->recipient);
     }
 
     /** @test */

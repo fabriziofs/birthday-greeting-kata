@@ -1,18 +1,19 @@
 <?php
 
+use Domain\Email;
+use Domain\EmailSender;
 use Domain\EmployeeRepository;
-use Symfony\Component\Mailer\Mailer;
-use Symfony\Component\Mailer\Transport\SendmailTransport;
-use Symfony\Component\Mime\Email;
+use Infrastructure\SymfonyEmailSender;
 
 class BirthdayService
 {
-    private Mailer $mailer;
     private EmployeeRepository $repository;
+    private EmailSender $emailSender;
 
-    public function __construct(EmployeeRepository $repository)
+    public function __construct(EmployeeRepository $repository, EmailSender $emailSender = new SymfonyEmailSender())
     {
         $this->repository = $repository;
+        $this->emailSender = $emailSender;
     }
 
     public function sendGreetings(XDate $xDate): void
@@ -31,23 +32,12 @@ class BirthdayService
 
     private function sendMessage(string $sender, string $subject, string $body, string $recipient): void
     {
-        // Create a mail session
-        $this->mailer = new Mailer(new SendmailTransport());
-
-        // Construct the message
-        $msg = (new Email())
-            ->from($sender)
-            ->to($recipient)
-            ->subject($subject)
-            ->text($body);
-
-        // Send the message
-        $this->doSendMessage($msg);
+        $this->doSendMessage(new Email($sender, $subject, $body, $recipient));
     }
 
     // made protected for testing :-(
     protected function doSendMessage(Email $msg): void
     {
-        $this->mailer->send($msg);
+        $this->emailSender->send($msg);
     }
 }
