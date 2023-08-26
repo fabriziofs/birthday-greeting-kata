@@ -3,14 +3,13 @@
 use Domain\Email;
 use Domain\EmailSender;
 use Domain\EmployeeRepository;
-use Infrastructure\SymfonyEmailSender;
 
 class BirthdayService
 {
     private EmployeeRepository $repository;
     private EmailSender $emailSender;
 
-    public function __construct(EmployeeRepository $repository, EmailSender $emailSender = new SymfonyEmailSender())
+    public function __construct(EmployeeRepository $repository, EmailSender $emailSender)
     {
         $this->repository = $repository;
         $this->emailSender = $emailSender;
@@ -25,14 +24,9 @@ class BirthdayService
                 $recipient = $employee->getEmail();
                 $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
                 $subject = 'Happy Birthday!';
-                $this->sendMessage('sender@here.com', $subject, $body, $recipient);
+                $this->doSendMessage(new Email('sender@here.com', $subject, $body, $recipient));
             }
         }
-    }
-
-    private function sendMessage(string $sender, string $subject, string $body, string $recipient): void
-    {
-        $this->doSendMessage(new Email($sender, $subject, $body, $recipient));
     }
 
     // made protected for testing :-(

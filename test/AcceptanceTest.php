@@ -2,6 +2,7 @@
 
 use Domain\Email;
 use Infrastructure\FileSystemEmployeeRepository;
+use Infrastructure\SymfonyEmailSender;
 use PHPUnit\Framework\TestCase;
 
 class AcceptanceTest extends TestCase
@@ -17,7 +18,7 @@ class AcceptanceTest extends TestCase
             $this->messagesSent[] = $msg;
         };
 
-        $this->service = new TestableBirthdayService(new FileSystemEmployeeRepository());
+        $this->service = new TestableBirthdayService(new FileSystemEmployeeRepository(), new SymfonyEmailSender());
         $this->service->setMessageHandler($messageHandler->bindTo($this));
     }
 
