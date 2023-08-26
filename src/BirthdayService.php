@@ -1,7 +1,6 @@
 <?php
 
 use Domain\EmployeeRepository;
-use Infrastructure\FileSystemEmployeeRepository;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport\SendmailTransport;
 use Symfony\Component\Mime\Email;
@@ -11,7 +10,7 @@ class BirthdayService
     private Mailer $mailer;
     private EmployeeRepository $repository;
 
-    public function __construct(EmployeeRepository $repository = new FileSystemEmployeeRepository())
+    public function __construct(EmployeeRepository $repository)
     {
         $this->repository = $repository;
     }

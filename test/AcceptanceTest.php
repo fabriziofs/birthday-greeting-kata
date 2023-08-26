@@ -1,5 +1,6 @@
 <?php
 
+use Infrastructure\FileSystemEmployeeRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Email;
 
@@ -16,7 +17,7 @@ class AcceptanceTest extends TestCase
             $this->messagesSent[] = $msg;
         };
 
-        $this->service = new TestableBirthdayService();
+        $this->service = new TestableBirthdayService(new FileSystemEmployeeRepository());
         $this->service->setMessageHandler($messageHandler->bindTo($this));
     }
 
